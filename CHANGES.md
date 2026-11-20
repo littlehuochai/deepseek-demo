@@ -66,3 +66,15 @@ chat_session_index.json
 ```
 
 已完成：导入 244 个对话（旧 240 + 新 4），旧包里的图片未导入以控制体积。
+
+6. **PWA（离线可用）**
+   - `public/manifest.webmanifest`、`icon-192.png`、`icon-512.png`、`public/sw.js`
+   - `rspack.config.ts` 用 CopyRspackPlugin 把 public 复制到 dist 根目录
+   - `src/index.html` 挂 manifest / icon；`src/main.tsx` 在 https 下注册 Service Worker
+   - 效果：加载过一次后，域名打不开也能离线进入页面（发消息仍需联网）
+
+7. **本机兜底插件**
+   - `$DSH_HOME/dsh-go/plugins/local-demo-server`（dsh-go 原生插件，`dsh plugin --profile web add` 安装）
+   - 输入框上方胶囊「开本机演示」：检查 127.0.0.1:8090，没起就 detached 启动 `python3 -m http.server`，并把地址复制到剪贴板
+   - 服务脚本：`/root/workspace/chat-demo-mobile/serve.sh`
+   - 本机版与线上版是不同来源，数据不共享
